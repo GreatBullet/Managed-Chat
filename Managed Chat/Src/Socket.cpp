@@ -86,7 +86,7 @@ void Socket::StartLoop()
 					//	}
 					//	continue;
 					//}
-					StoreMessageReceives(buf);
+					StoreMessageReceives(buf,sock);
 					//for (unsigned int i = 0; i< master.fd_count; i++)
 					//{
 					//	SOCKET outSock = master.fd_array[i];
@@ -105,10 +105,14 @@ void Socket::StartLoop()
 	}
 }
 
-void Socket::StoreMessageReceives(char buf[4096])
+void Socket::StoreMessageReceives(char buf[4096], SOCKET sock)
 {
 	std::string DataPrep((LPCTSTR)buf);
+	std::ostringstream ss;
+	ss << "#SOCKET" << sock << ": " << DataPrep;
+	
+	std::string concatOfContext = ss.str();
 	std::fstream target("test.txt", std::ios::app);
-	target << DataPrep << '\n';
+	target << concatOfContext << '\n';
 	target.close();
 }

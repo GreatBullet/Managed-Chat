@@ -12,7 +12,7 @@ public:
 	Socket();
 	~Socket();
 	void StartLoop();
-	void StoreMessageReceives(char buf[4096]);
+	void StoreMessageReceives(char buf[4096], SOCKET sock);
 private:
 	WSADATA wsData;
 	WORD ver;
